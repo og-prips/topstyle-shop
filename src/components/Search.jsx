@@ -1,16 +1,18 @@
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { ProductContext } from "../contexts/ProductProvider";
 
 const Search = () => {
   const searchRef = useRef();
+  const { searchProducts } = useContext(ProductContext);
 
   const handleSearch = () => {
-    alert(searchRef.current.value);
+    searchProducts(searchRef.current.value);
   };
 
   return (
     <>
       <input type="text" placeholder="Sök produkt..." ref={searchRef} />
-      <button onClick={handleSearch}></button>
+      <button onClick={handleSearch}>Sök</button>
     </>
   );
 };

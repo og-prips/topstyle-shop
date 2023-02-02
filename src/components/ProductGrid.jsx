@@ -1,15 +1,16 @@
 import { useState, useContext } from "react";
-import ProductItem from "./ProductItem";
+import ProductItem from "./ProductCard";
 import { ProductContext } from "../contexts/ProductProvider";
 import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
   const { products } = useContext(ProductContext);
 
-  const productItems = products.map((p) => {
+  const productItems = products.map((product) => {
     return (
       <Col>
-        <ProductItem key={p.id} data={p.data()} />
+        <ProductItem key={product.id} id={product.id} product={product.data()} />
       </Col>
     );
   });

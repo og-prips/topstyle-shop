@@ -2,8 +2,9 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Profile from "./components/Profile";
 import Search from "./components/Search";
-import ProductList from "./components/ProductList";
-import { Container, Navbar, Nav, Form, Button } from "react-bootstrap";
+import ProductList from "./components/ProductGrid";
+import ProductView from "./components/ProductView";
+import { Container, Navbar, Nav } from "react-bootstrap";
 import AuthProvider from "./contexts/AuthProvider";
 import ProductProvider from "./contexts/ProductProvider";
 import { Routes, Route, Link } from "react-router-dom";
@@ -35,6 +36,7 @@ function App() {
         </Navbar>
         <Routes>
           <Route exact path="/" element={<ProductList />} />
+          <Route path="/product/:id" element={<ProductView />} />
         </Routes>
       </ProductProvider>
 

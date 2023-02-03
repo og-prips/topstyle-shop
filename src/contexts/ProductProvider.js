@@ -6,8 +6,12 @@ export const ProductContext = createContext();
 
 const ProductProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
-
   const productsRef = collection(db, "products");
+
+  useEffect(() => {
+    searchProducts("");
+    console.log("effect");
+  }, []);
 
   const searchProducts = async (searchValue) => {
     const dbProducts = await getDocs(productsRef);
@@ -23,7 +27,7 @@ const ProductProvider = ({ children }) => {
     });
 
     setProducts(matchedProducts);
-    
+
     console.log(`${matchedProducts.length} MATCHES FOUND`);
   };
 

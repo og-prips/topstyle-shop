@@ -13,7 +13,7 @@ function App() {
   return (
     <>
       <ProductProvider>
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
           <Container>
             <Navbar.Brand as={Link} to="/">
               TopStyle

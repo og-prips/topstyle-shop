@@ -10,7 +10,10 @@ const ProductItem = ({ id, product }) => {
   };
 
   return (
-    <Card className="h-100 product-card" border="light">
+    <Card
+      className="h-100 product-card"
+      border="light"
+    >
       <Card.Img
         variant="top"
         src={require(`../assets/images/${product.image}`)}

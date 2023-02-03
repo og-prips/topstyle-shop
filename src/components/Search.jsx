@@ -9,9 +9,20 @@ const Search = () => {
     searchProducts(searchRef.current.value);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   return (
     <>
-      <input type="text" placeholder="Sök produkt..." ref={searchRef} />
+      <input
+        type="text"
+        placeholder="Sök produkt..."
+        ref={searchRef}
+        onKeyDown={handleKeyDown}
+      />
       <button onClick={handleSearch}>Sök</button>
     </>
   );

@@ -1,12 +1,18 @@
 import { useRef, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductProvider";
+import { Button } from "react-bootstrap";
 
 const Search = () => {
   const searchRef = useRef();
   const { searchProducts } = useContext(ProductContext);
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     searchProducts(searchRef.current.value);
+    searchRef.current.value = "";
+
+    navigate("/");
   };
 
   const handleKeyDown = (e) => {
@@ -22,8 +28,10 @@ const Search = () => {
         placeholder="Sök produkt..."
         ref={searchRef}
         onKeyDown={handleKeyDown}
+        style={{ marginRight: "10px" }}
+        autoFocus
       />
-      <button onClick={handleSearch}>Sök</button>
+      <Button onClick={handleSearch}>Sök</Button>
     </>
   );
 };

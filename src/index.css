@@ -1,9 +1,55 @@
-body {
-  background-color: #d3d3d3;
+@font-face {
+  font-family: "custom-cursive";
+  src: url(./fonts/custom-cursive.ttf);
 }
 
-.asdf {
-  box-shadow: rgba(46, 240, 240, 0.4) 5px 5px, rgba(46, 185, 240, 0.3) 10px 10px,
-    rgba(46, 185, 240, 0.2) 15px 15px, rgba(46, 185, 240, 0.1) 20px 20px,
-    rgba(46, 185, 240, 0.05) 25px 25px;
+body {
+  background: linear-gradient(to right, #11998e, #38ef7d);
+  margin-bottom: 30px;
+}
+
+.product-card {
+  /* rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px
+  rgba(240, 46, 170, 0.4) 0px 5px, rgba(240, 46, 170, 0.3) 0px 10px, rgba(240, 46, 170, 0.2) 0px 15px, rgba(240, 46, 170, 0.1) 0px 20px, rgba(240, 46, 170, 0.05) 0px 25px
+  rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px */
+  /* box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px,
+    rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px,
+    rgba(240, 46, 170, 0.05) 25px 25px; */
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  min-width: 300px;
+}
+
+.product-image {
+  padding: 10px;
+  cursor: pointer;
+  object-fit: contain;
+  transition: 0.2s;
+  height: inherit;
+}
+
+.product-image:hover {
+  transform: scale(1.03);
+}
+
+.header-icon {
+  height: 25px;
+}
+
+#cart-counter {
+  position: relative;
+  left: -22px;
+  top: -15px;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#cart-counter-circle {
+  position: relative;
+  left: -10px;
+  top: -14px;
+  color: orange;
+  height: 16px;
 }

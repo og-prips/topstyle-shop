@@ -1,8 +1,7 @@
 import { Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./ProductCard.css";
 
-const ProductItem = ({ id, product }) => {
+const ProductCard = ({ id, product }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -10,10 +9,7 @@ const ProductItem = ({ id, product }) => {
   };
 
   return (
-    <Card
-      className="h-100 product-card"
-      border="light"
-    >
+    <Card className="h-100 product-card" border="light">
       <Card.Img
         variant="top"
         src={require(`../assets/images/${product.image}`)}
@@ -25,10 +21,10 @@ const ProductItem = ({ id, product }) => {
         <Card.Text>{product.name}</Card.Text>
       </Card.Body>
       <Card.Footer>
-        <h5 className="fw-bold">{product.price} kr</h5>
+        <h5 className="fw-bold">{product.price}:-</h5>
       </Card.Footer>
     </Card>
   );
 };
 
-export default ProductItem;
+export default ProductCard;

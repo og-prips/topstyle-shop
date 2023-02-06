@@ -1,14 +1,21 @@
-import { useState, useContext } from "react";
-import ProductCard from "./ProductCard";
+import { useContext, useEffect } from "react";
 import { ProductContext } from "../contexts/ProductProvider";
 import { Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import ProductCard from "./ProductCard";
 
 const ProductGrid = () => {
-  const { products, matchedProducts } = useContext(ProductContext);
+  const { products, matchedProducts, getProducts, isLoading } =
+    useContext(ProductContext);
+
+  useEffect(() => {
+    getProducts();
+
+    console.log("fetching products...");
+  }, []);
+
   const currentProducts = matchedProducts ? matchedProducts : products;
 
-  const productItems = products.map((product) => {
+  const productItems = currentProducts.map((product) => {
     return (
       <Col className="col-lg-4 d-flex align-items-stretch">
         <ProductCard
@@ -20,12 +27,20 @@ const ProductGrid = () => {
     );
   });
 
+  if (isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
-    <Container className="d-flex align-items-center justify-content-center mt-5">
-      <Row xs={1} md={5} className="g-4">
-        {productItems}
-      </Row>
-    </Container>
+    <>
+      {products && (
+        <Container className="d-flex align-items-center justify-content-center mt-5">
+          <Row xs={1} md={5} className="g-4">
+            {productItems}
+          </Row>
+        </Container>
+      )}
+    </>
   );
 };
 

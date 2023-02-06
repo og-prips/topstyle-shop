@@ -39,17 +39,17 @@ const Header = () => {
           </Nav>
         </Navbar.Collapse>
 
-        <Navbar.Text>
-          <FontAwesomeIcon
-            icon={faCartShopping}
-            onClick={() => navigate("/cart")}
-            className="header-icon"
-            style={{ cursor: "pointer", color: "white", height: "25px" }}
-          />
+        <Navbar.Text
+          onClick={() => navigate("/cart")}
+          style={{ cursor: "pointer" }}
+        >
+          <FontAwesomeIcon icon={faCartShopping} className="header-icon" />
           {cartProducts.length > 0 && (
             <>
               <FontAwesomeIcon icon={faCircle} id="cart-counter-circle" />
-              <span id="cart-counter">{cartProducts.length}</span>
+              <span id="cart-counter">
+                {cartProducts.length > 9 ? "" : cartProducts.length}
+              </span>
             </>
           )}
         </Navbar.Text>

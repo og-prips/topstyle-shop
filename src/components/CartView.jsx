@@ -1,24 +1,26 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductProvider";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
 
 const CartView = () => {
-  const { cartProducts, removeFromCart, placeOrder } =
+  const { cartProducts, removeFromCart, placeOrder, totalPrice } =
     useContext(ProductContext);
 
-  let totalPrice = 0;
+  const [orderPlaced, setOrderPlaced] = useState(false);
 
   const handleRemoveFromCart = (index) => {
-    totalPrice -= cartProducts[index].price;
     removeFromCart(index);
-    console.log(index);
-    console.log(cartProducts[index]);
+  };
+
+  const handlePlaceOrder = () => {
+    setOrderPlaced(true);
+    console.log(orderPlaced);
+
+    placeOrder();
   };
 
   const productCards = cartProducts.map((product, index) => {
-    totalPrice += product.price;
-
     return (
       <Row key={index} style={{ background: "#f2f2f2", padding: "10px" }}>
         <Col xs={4}>
@@ -49,17 +51,26 @@ const CartView = () => {
 
   return (
     <Container className="mt-5">
-      {productCards}
-
-      {cartProducts.length > 0 ? (
-        <Row style={{ background: "#f2f2f2", padding: "10px" }}>
-          <Col xs={12}>
-            <h3>Totalt pris: {totalPrice}:-</h3>
-            <Button onClick={() => placeOrder(totalPrice)} variant="primary">
-              Lägg beställning
-            </Button>
-          </Col>
-        </Row>
+      {orderPlaced ? (
+        <div>
+          <h1>Tack för din beställning!</h1>
+          <p>
+            Se dina beställningar under <Link to="/profile">din profil</Link>{" "}
+            eller <Link to="/">forstätt shoppa</Link>
+          </p>
+        </div>
+      ) : cartProducts.length > 0 ? (
+        <>
+          {productCards}
+          <Row style={{ background: "#f2f2f2", padding: "10px" }}>
+            <Col xs={12}>
+              <h3>Totalt pris: {totalPrice}:-</h3>
+              <Button onClick={handlePlaceOrder} variant="primary">
+                Lägg beställning
+              </Button>
+            </Col>
+          </Row>
+        </>
       ) : (
         <div className="text-center">
           <h1 className="text-center">Din varukorg är tom :(</h1>

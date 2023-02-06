@@ -1,8 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import {
   collection,
-  doc,
-  setDoc,
   getDocs,
   addDoc,
   serverTimestamp,
@@ -17,6 +15,8 @@ const ProductProvider = ({ children }) => {
   const [matchedProducts, setMatchedProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { user } = useAuth();
 
@@ -24,7 +24,8 @@ const ProductProvider = ({ children }) => {
   const ordersRef = collection(db, "orders");
 
   useEffect(() => {
-    getProducts();
+    // getProducts();
+
     if (user) {
       getUserOrders();
     }
@@ -33,6 +34,8 @@ const ProductProvider = ({ children }) => {
   }, []);
 
   const getProducts = async () => {
+    setIsLoading(true);
+
     const dbProducts = await getDocs(productsRef);
     const fetchedProducts = [];
 
@@ -41,6 +44,8 @@ const ProductProvider = ({ children }) => {
     });
 
     setProducts(fetchedProducts);
+
+    setIsLoading(false);
   };
 
   const searchProducts = (searchValue) => {
@@ -66,29 +71,34 @@ const ProductProvider = ({ children }) => {
     console.log("adding to cart...");
 
     setCartProducts([...cartProducts, product]);
+    setTotalPrice(totalPrice + product.price);
 
     console.log(`${cartProducts.length} PRODUCTS IN CART`);
   };
 
   const removeFromCart = (index) => {
+    const newTotalPrice = totalPrice - cartProducts[index].price;
+    setTotalPrice(newTotalPrice);
+
     const updatedCart = [...cartProducts];
     updatedCart.splice(index, 1);
 
     setCartProducts(updatedCart);
   };
 
-  const placeOrder = async (totalPrice) => {
+  const placeOrder = async () => {
     const order = {
       products: cartProducts,
       totalPrice: totalPrice,
       timestamp: serverTimestamp(),
+      dateCreated: new Date().toLocaleString(),
       userID: user.uid,
     };
 
-    await addDoc(ordersRef, order);
+    setTotalPrice(0);
+    setCartProducts([]);
 
-    // const userDoc = doc(db, "all_orders", user.uid);
-    // await addDoc(collection(userDoc, "orders"), order);
+    await addDoc(ordersRef, order);
   };
 
   const getUserOrders = async () => {
@@ -106,12 +116,17 @@ const ProductProvider = ({ children }) => {
 
   const providerValue = {
     products,
+    getProducts,
     matchedProducts,
     searchProducts,
     cartProducts,
     addToCart,
     removeFromCart,
     placeOrder,
+    orders,
+    getUserOrders,
+    totalPrice,
+    isLoading,
   };
 
   return (

@@ -42,13 +42,13 @@ const ProductView = () => {
               <Button onClick={handleaddToCart} className="btn-success w-100">
                 Lägg i varukorg
               </Button>
-              {showAlert && (
-                <Alert variant="success" className="mt-2 text-center">
-                  Produkt tillagd!
-                </Alert>
-              )}
             </Card.Footer>
           </Card>
+          {showAlert && (
+            <Alert variant="success" className="mt-2 text-center">
+              Produkt tillagd!
+            </Alert>
+          )}
         </Col>
       </Row>
     </Container>

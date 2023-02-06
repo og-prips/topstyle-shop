@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 const SignUp = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const passwordConfirmRef = useRef();
   const { signUp } = useAuth();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,11 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+      setError("Lösenorden matchar inte");
+      return;
+    }
 
     try {
       setError("");
@@ -36,13 +42,21 @@ const SignUp = () => {
             <h2 className="text-center mb-4">Skapa konto</h2>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
-              <Form.Group id="email">
+              <Form.Group>
                 <Form.Label>E-post</Form.Label>
                 <Form.Control type="email" ref={emailRef} required />
               </Form.Group>
-              <Form.Group id="email">
+              <Form.Group>
                 <Form.Label>Lösenord</Form.Label>
                 <Form.Control type="password" ref={passwordRef} required />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Bekräfta lösenord</Form.Label>
+                <Form.Control
+                  type="password"
+                  ref={passwordConfirmRef}
+                  required
+                />
               </Form.Group>
               <Button type="submit" disabled={loading} className="w-100 mt-3">
                 Skapa konto

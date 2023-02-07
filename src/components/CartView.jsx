@@ -1,19 +1,26 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ProductContext } from "../contexts/ProductProvider";
 import { Container, Card, Button, Row, Col } from "react-bootstrap";
+import { useAuth } from "../contexts/AuthProvider";
 
 const CartView = () => {
   const { cartProducts, removeFromCart, placeOrder, totalPrice } =
     useContext(ProductContext);
-
+  const { user } = useAuth();
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const navigate = useNavigate();
 
   const handleRemoveFromCart = (index) => {
     removeFromCart(index);
   };
 
   const handlePlaceOrder = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
     setOrderPlaced(true);
     console.log(orderPlaced);
 

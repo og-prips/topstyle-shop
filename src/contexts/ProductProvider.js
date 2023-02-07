@@ -24,13 +24,11 @@ const ProductProvider = ({ children }) => {
   const ordersRef = collection(db, "orders");
 
   useEffect(() => {
-    // getProducts();
-
     if (user) {
       getUserOrders();
     }
 
-    console.log("fetching products...");
+    console.log("fetching orders...");
   }, []);
 
   const getProducts = async () => {

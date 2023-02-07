@@ -17,7 +17,7 @@ const ProductGrid = () => {
 
   const productItems = currentProducts.map((product) => {
     return (
-      <Col className="col-lg-4 d-flex align-items-stretch">
+      <Col className="col-lg-3 d-flex align-items-stretch">
         <ProductCard
           key={product.id}
           id={product.id}

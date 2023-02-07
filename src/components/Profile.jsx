@@ -32,7 +32,12 @@ const Home = () => {
           <p>
             <b>{product.brand.toUpperCase()}</b> | {product.name}
           </p>
-          <p className="justify-content-end">
+          <img
+            src={require(`../assets/images/${product.image}`)}
+            style={{ width: "75px" }}
+          />
+
+          <p>
             <b>{product.price}:-</b>
           </p>
           <hr />

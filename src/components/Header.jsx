@@ -63,7 +63,7 @@ const Header = () => {
           >
             {user && (
               <>
-                <Navbar.Text style={{ color: "black" }}>
+                <Navbar.Text style={{ color: "black", paddingLeft: "10px" }}>
                   {user.email}
                 </Navbar.Text>
                 <NavDropdown.Divider />
